@@ -2,6 +2,7 @@ import unittest
 from unittest import mock
 
 from concourse_demo_python_service import app
+from concourse_demo_python_service.animal_repository import AnimalNotFound
 from concourse_demo_python_service.colour_repository import ColourNotFound
 
 
@@ -35,6 +36,16 @@ class TestAcceptance(unittest.TestCase):
     def test_404_when_colour_not_found(self, animal_repository, colour_repository):
         colour_repository.fetch_by_letter.side_effect = ColourNotFound()
         animal_repository.fetch_by_letter.return_value = 'Dog'
+
+        response = self.app.get("/coloured_animal?colour=O&animal=H")
+
+        self.assertEqual(response.status_code, 404)
+
+    @mock.patch('concourse_demo_python_service.colour_repository')
+    @mock.patch('concourse_demo_python_service.animal_repository')
+    def test_404_when_animal_not_found(self, animal_repository, colour_repository):
+        colour_repository.fetch_by_letter.return_value = 'Red'
+        animal_repository.fetch_by_letter.side_effect = AnimalNotFound()
 
         response = self.app.get("/coloured_animal?colour=O&animal=H")
 
