@@ -10,4 +10,5 @@ inputs:
 - name: concourse-demo-python-service
 
 run:
-  path: concourse-demo-python-service/ci/task.sh
+  path: ci/task.sh
+  dir: concourse-demo-python-service
