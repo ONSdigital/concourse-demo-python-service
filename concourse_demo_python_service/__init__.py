@@ -10,11 +10,15 @@ app = Flask(__name__)
 @app.route('/coloured_animal')
 def coloured_animal():
     try:
-        colour = colour_repository.fetch_by_letter(request.args.get('colour'))
-        animal = animal_repository.fetch_by_letter(request.args.get('animal'))
+        animal_letter = request.args['animal']
+        colour_letter = request.args['colour']
+
+        animal = animal_repository.fetch_by_letter(animal_letter)
+        colour = colour_repository.fetch_by_letter(colour_letter)
 
         return f'{colour} {animal}'
-
+    except KeyError:
+        return 'Missing argument', 400
     except ColourNotFound:
         return 'Colour not found', 404
     except AnimalNotFound:

@@ -50,3 +50,13 @@ class TestAcceptance(unittest.TestCase):
         response = self.app.get("/coloured_animal?colour=O&animal=H")
 
         self.assertEqual(response.status_code, 404)
+
+    def test_400_when_animal_is_missing(self):
+        response = self.app.get("/coloured_animal?colour=O")
+
+        self.assertEqual(response.status_code, 400)
+
+    def test_400_when_colour_is_missing(self):
+        response = self.app.get("/coloured_animal?animal=H")
+
+        self.assertEqual(response.status_code, 400)
