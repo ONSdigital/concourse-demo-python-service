@@ -14,8 +14,8 @@ class TestAcceptance(unittest.TestCase):
     def test_integrated_coloured_animal_returned(self):
         response = self.app.get("/coloured_animal?colour=R&animal=C")
 
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, b"Red Cat")
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(b"Red Cat", response.data)
 
     @mock.patch('concourse_demo_python_service.colour_repository')
     @mock.patch('concourse_demo_python_service.animal_repository')
@@ -28,8 +28,8 @@ class TestAcceptance(unittest.TestCase):
         animal_repository.fetch_by_letter.assert_called_once_with('H')
         colour_repository.fetch_by_letter.assert_called_once_with('O')
 
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, b"Orange Hamster")
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(b"Orange Hamster", response.data)
 
     @mock.patch('concourse_demo_python_service.colour_repository')
     @mock.patch('concourse_demo_python_service.animal_repository')
@@ -39,7 +39,7 @@ class TestAcceptance(unittest.TestCase):
 
         response = self.app.get("/coloured_animal?colour=O&animal=H")
 
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(404, response.status_code)
 
     @mock.patch('concourse_demo_python_service.colour_repository')
     @mock.patch('concourse_demo_python_service.animal_repository')
@@ -49,14 +49,14 @@ class TestAcceptance(unittest.TestCase):
 
         response = self.app.get("/coloured_animal?colour=O&animal=H")
 
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(404, response.status_code)
 
     def test_400_when_animal_is_missing(self):
         response = self.app.get("/coloured_animal?colour=O")
 
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(400, response.status_code)
 
     def test_400_when_colour_is_missing(self):
         response = self.app.get("/coloured_animal?animal=H")
 
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(400, response.status_code)
