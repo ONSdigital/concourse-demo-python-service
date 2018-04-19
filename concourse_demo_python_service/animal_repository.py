@@ -5,10 +5,10 @@ def fetch_by_letter(letter):
         's': 'Snake'
     }
 
-    if letter.lower() not in animals:
+    try:
+        return animals[letter.lower()]
+    except KeyError:
         raise AnimalNotFound()
-
-    return animals[letter.lower()]
 
 class AnimalNotFound(Exception):
     pass

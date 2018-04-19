@@ -13,9 +13,9 @@ class TestAnimalRepository(unittest.TestCase):
     def test_returns_snake_for_s(self):
         self.assertEqual(animal_repository.fetch_by_letter('s'), 'Snake')
 
-    def test_it_works_with_uppercase_letters(self):
+    def test_animal_with_uppercase_letters(self):
         self.assertEqual(animal_repository.fetch_by_letter('C'), 'Cat')
 
-    def test_it_raise_if_animal_is_not_found(self):
+    def test_raise_exception_if_animal_not_found(self):
         with self.assertRaises(animal_repository.AnimalNotFound):
             animal_repository.fetch_by_letter('X')
