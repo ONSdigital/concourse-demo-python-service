@@ -1,4 +1,4 @@
 #!/bin/bash -ex
 
-pipenv install
+pipenv install --dev
 pipenv run python -m pytest
