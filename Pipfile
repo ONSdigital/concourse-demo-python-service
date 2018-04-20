@@ -10,10 +10,12 @@ name = "pypi"
 pytest = "*"
 flask = "*"
 gunicorn = "*"
+requests = "*"
 
 
 [dev-packages]
 
+requests-mock = "*"
 
 
 [requires]

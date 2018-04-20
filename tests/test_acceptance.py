@@ -1,6 +1,9 @@
 import unittest
 from unittest import mock
 
+import os
+import requests_mock
+
 from concourse_demo_python_service import app
 from concourse_demo_python_service.animal_repository import AnimalNotFound
 from concourse_demo_python_service.colour_repository import ColourNotFound
@@ -11,7 +14,11 @@ class TestAcceptance(unittest.TestCase):
     def setUp(self):
         self.app = app.test_client()
 
-    def test_integrated_coloured_animal_returned(self):
+    @requests_mock.mock()
+    def test_integrated_coloured_animal_returned(self, mock_request):
+        os.environ['ANIMAL_SERVICE'] = 'http://animal-service:8080'
+        mock_request.get("http://animal-service:8080/animal/c", text="Cat", status_code=200)
+
         response = self.app.get("/coloured_animal?colour=R&animal=C")
 
         self.assertEqual(200, response.status_code)

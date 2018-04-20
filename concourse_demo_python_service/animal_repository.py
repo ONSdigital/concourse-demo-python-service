@@ -1,14 +1,13 @@
-def fetch_by_letter(letter):
-    animals = {
-        'd': 'Dog',
-        'c': 'Cat',
-        's': 'Snake'
-    }
+import os
+import requests
 
-    try:
-        return animals[letter.lower()]
-    except KeyError:
+def fetch_by_letter(letter):
+    response = requests.get(os.getenv("ANIMAL_SERVICE") + "/animal/" + letter.lower())
+
+    if response.status_code == 404:
         raise AnimalNotFound()
+
+    return response.text
 
 class AnimalNotFound(Exception):
     pass
