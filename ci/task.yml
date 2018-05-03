@@ -7,8 +7,8 @@ image_resource:
     repository: kennethreitz/pipenv
 
 inputs:
-- name: concourse-demo-python-service
+- name: python-service
 
 run:
   path: ci/task.sh
-  dir: concourse-demo-python-service
+  dir: python-service
