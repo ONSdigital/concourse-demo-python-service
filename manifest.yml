@@ -1,3 +1,4 @@
 ---
 applications:
 - name: concourse-demo-python
+memory: 256M
